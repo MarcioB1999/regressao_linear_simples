@@ -33,7 +33,7 @@ class MRLS:
 
         beta_1 = (sxy)/(sxx)
     else:
-        beta_1 = (x@y)/(x@x)
+        beta_1 = (x.T@y)/(x.T@x)
 
     self.beta1 = beta_1
 
@@ -59,7 +59,7 @@ class MRLS:
     
     F = sqreg/qmres
     pvalor = 1-f.cdf(F, 1, n-2)
-    if(self.pvalor < 0.05):
+    if(pvalor < 0.05):
         return pvalor, False#rejeito H0
     else:
         return pvalor,True#aceito H0
@@ -67,7 +67,6 @@ class MRLS:
  
  
   #teste de H0:beta0=0
-  #Ja precisa ter treinado o modelo para se usar
   def Teste_B0(self,x,y,y_predict):
     n = np.shape(x)[0]
     xbarra = x.mean()
